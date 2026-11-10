@@ -1,12 +1,11 @@
 ---
 /**
- * Contact form posting to Formgong (https://formgong.com).
+ * Contact form posting to the configured Formgong endpoint.
  *
  * Without JavaScript it is a plain HTML POST: Formgong stores the message, notifies you and
  * redirects the visitor to /thanks/. With JavaScript it is sent with fetch and the visitor stays
  * on the page. The success state is shown ONLY when the server answers { success: true }.
  */
-import { getCollection } from "astro:content";
 import { SITE } from "../config";
 import Icon from "./Icon.astro";
 
@@ -16,7 +15,6 @@ interface Props {
 }
 const { id = "enquiry" } = Astro.props;
 
-const services = (await getCollection("services")).sort((a, b) => a.data.order - b.data.order);
 const PLACEHOLDER_KEY = "fk_your_access_key";
 const accessKey = import.meta.env.PUBLIC_FORMGONG_ACCESS_KEY || SITE.formgong.accessKey;
 const endpoint = import.meta.env.PUBLIC_FORMGONG_ENDPOINT || SITE.formgong.endpoint;
@@ -25,7 +23,7 @@ const showKeyNotice = import.meta.env.DEV && accessKey === PLACEHOLDER_KEY;
 const f = (name: string) => `${id}-${name}`;
 ---
 
-<div class="form-card card relative p-5 sm:p-8" data-contact data-email={SITE.email}>
+<div class="form-card card relative p-5 sm:p-8" data-contact>
   {
     showKeyNotice && (
       <p class="mb-6 rounded-xl border border-dashed border-accent p-4 text-sm">
@@ -47,37 +45,41 @@ const f = (name: string) => `${id}-${name}`;
 
     <div class="grid gap-5 sm:grid-cols-2">
       <div>
-        <label for={f("name")} class="field-label">Your name</label>
+        <label for={f("name")} class="field-label">Your Name</label>
         <input id={f("name")} name="name" type="text" class="field" autocomplete="name" required maxlength="120" />
       </div>
       <div>
-        <label for={f("company")} class="field-label">Company <span class="field-hint">(optional)</span></label>
-        <input id={f("company")} name="company" type="text" class="field" autocomplete="organization" maxlength="160" />
+        <label for={f("organization")} class="field-label">Organization <span class="field-hint">(optional)</span></label>
+        <input id={f("organization")} name="organization" type="text" class="field" autocomplete="organization" maxlength="160" />
       </div>
       <div class="sm:col-span-2">
-        <label for={f("email")} class="field-label">Work email</label>
+        <label for={f("email")} class="field-label">Email Address</label>
         <input id={f("email")} name="email" type="email" class="field" autocomplete="email" required maxlength="160" />
       </div>
       <div class="sm:col-span-2">
-        <label for={f("topic")} class="field-label">What is it about?</label>
+        <label for={f("topic")} class="field-label">Inquiry Type</label>
         <div class="relative">
-          <select id={f("topic")} name="topic" class="field">
-            <option value="Not sure yet">Not sure yet</option>
-            {services.map((s) => <option value={s.data.title}>{s.data.title}</option>)}
+          <select id={f("topic")} name="topic" class="field" required>
+            <option value="" selected disabled>Select an inquiry type</option>
+            <option>Joining TPMC</option>
+            <option>Community Events</option>
+            <option>Speaking Opportunities</option>
+            <option>Partnerships &amp; Collaborations</option>
+            <option>General Inquiry</option>
+            <option>Other</option>
           </select>
           <Icon name="chevron-down" size={18} class="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-muted" />
         </div>
       </div>
       <div class="sm:col-span-2">
-        <label for={f("message")} class="field-label">The decision you are working on</label>
+        <label for={f("message")} class="field-label">Your Message</label>
         <textarea
           id={f("message")}
           name="message"
           rows="4"
           class="field resize-y"
           required
-          maxlength="4000"
-          placeholder="For example: how many units to order for spring, or whether to raise prices on the basic plan."></textarea>
+          maxlength="4000"></textarea>
       </div>
     </div>
 
@@ -91,10 +93,10 @@ const f = (name: string) => `${id}-${name}`;
         <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="3" opacity=".3"></circle>
         <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
       </svg>
-      <span data-submit-label>Send message</span>
+      <span data-submit-label>Send Message</span>
       <Icon name="arrow-right" class="icon-shift submit-arrow" />
     </button>
-    <p class="mt-4 text-center text-sm text-muted">We reply within one working day and use your details only to answer you.</p>
+    <p class="mt-4 text-center text-sm text-muted">We will do our best to respond as soon as possible.</p>
   </form>
 
   <div class="form-success py-6 text-center" data-form-success hidden>
@@ -102,12 +104,11 @@ const f = (name: string) => `${id}-${name}`;
       <circle class="check-ring" pathLength="1" cx="40" cy="40" r="36" stroke="currentColor" stroke-width="3"></circle>
       <path class="check-mark" pathLength="1" d="M25 41.5 35.5 52 56 30" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
-    <h3 class="mt-6 text-3xl font-light tracking-tight" tabindex="-1" data-success-heading>Message received</h3>
+    <h3 class="mt-6 text-3xl font-light tracking-tight" tabindex="-1" data-success-heading>Message Received!</h3>
     <p class="mx-auto mt-3 max-w-sm text-muted">
-      One of us will reply within one working day. If it is urgent, call{" "}
-      <a href={`tel:${SITE.phone.tel}`} class="whitespace-nowrap text-accent">{SITE.phone.display}</a>.
+      Thank you for reaching out to TPMC. Your message has been submitted successfully. We'll get back to you as soon as possible.
     </p>
-    <button type="button" class="btn btn-secondary mt-8" data-form-reset>Send another message</button>
+    <button type="button" class="btn btn-secondary mt-8" data-form-reset>Send Another Message</button>
   </div>
 
   <p class="sr-only" role="status" data-form-live></p>
@@ -127,8 +128,6 @@ const f = (name: string) => `${id}-${name}`;
     if (!form || !success || !errorBox || !errorText || !button || !label || !live) continue;
 
     const idleLabel = label.textContent ?? "";
-    const email = card.dataset.email ?? "";
-
     const setSending = (sending: boolean) => {
       button.disabled = sending;
       form.setAttribute("aria-busy", String(sending));
@@ -161,7 +160,7 @@ const f = (name: string) => `${id}-${name}`;
         reply = await response.json().catch(() => null);
       } catch {
         setSending(false);
-        showError(`We couldn't reach the server. Check your connection and try again, or email us at ${email}.`);
+        showError("We couldn't reach the server. Please check your connection and try again.");
         return;
       }
       setSending(false);
@@ -171,13 +170,13 @@ const f = (name: string) => `${id}-${name}`;
         form.reset();
         form.hidden = true;
         success.hidden = false;
-        live.textContent = "Message received. We reply within one working day.";
+        live.textContent = "Message received. Thank you for reaching out to TPMC.";
         success.scrollIntoView({ block: "nearest" });
         success.querySelector<HTMLElement>("[data-success-heading]")?.focus({ preventScroll: true });
         return;
       }
       const message = typeof reply?.message === "string" && reply.message.trim() ? reply.message : "";
-      showError(message || `Your message was not sent. Please try again, or email us at ${email}.`);
+      showError(message || "Your message was not sent. Please try again later.");
     });
 
     card.querySelector("[data-form-reset]")?.addEventListener("click", () => {

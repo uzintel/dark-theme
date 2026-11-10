@@ -1,22 +1,23 @@
 ---
-/**
- * 5. Statement that fills line by line on scroll, and 6. the turning orbits beside a paragraph.
- * On wide screens this block slides up over the sticky hero (see .hero-wrap in index.astro).
- */
+/** Community introduction and quote-ready intro section. */
 import FillLines from "../FillLines.astro";
 import Orbits from "../Orbits.astro";
 ---
 
-<section class="statement" aria-label="What we do">
+<section class="statement" aria-labelledby="statement-title">
   <div class="container-x statement-col">
     <FillLines
+      id="statement-title"
+      as="h2"
       class="h-statement statement-text"
-      lines={["We turn your own *records*", "into *forecasts* and *prices*", "your team can *check*."]}
+      lines={["Learn. *Connect.*", "*Grow*."]}
     />
     <Orbits class="statement-orbits" follow={100} />
     <p class="t-big statement-para">
-      Most clients already have the data: sales exports, a CRM, a stock system and some spreadsheets. We clean it once, model it in
-      SQL and Python, and hand the code to your team.
+      Project management is more than frameworks and methodologies. It's about people, collaboration, decision-making, and
+      delivering meaningful outcomes. TPMC creates a space where professionals can exchange experiences, discuss real-world
+      challenges, and learn from one another. Whether you're an experienced project manager or just beginning your journey,
+      there's a place for you in our community.
     </p>
   </div>
 </section>

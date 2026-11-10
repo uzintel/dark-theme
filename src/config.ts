@@ -1,103 +1,74 @@
-/**
- * Orrery: the one file to edit when you rebrand the theme.
- *
- * Everything here is sample data for a fictional consultancy. Phone numbers use the
- * 555-01xx range reserved for fiction, and every email and URL uses example.com.
- */
-
-export type Day = "Mo" | "Tu" | "We" | "Th" | "Fr" | "Sa" | "Su";
-
-export interface OpeningHours {
-  /** Shown on the page, e.g. "Mon – Fri". */
-  label: string;
-  days: Day[];
-  /** 24h "HH:MM". Leave both out for a closed day. */
-  opens?: string;
-  closes?: string;
-}
-
-export interface Stat {
-  value: number;
-  /** Printed right after the number, e.g. "+" or "%". */
-  suffix?: string;
-  label: string;
-}
-
+/** Editable TPMC site details, links, and page metadata. */
 export const SITE = {
-  name: "Quillmoor Analytics",
-  /** Short name for the logo on small screens. */
-  shortName: "Quillmoor",
-  tagline: "Forecasting, pricing and reporting for firms without a data team",
+  name: "Tokyo Project Management Community",
+  shortName: "TPMC",
+  displayLogo: "TPMC.",
+  tagline: "Connecting professionals. Sharing knowledge. Growing together.",
+  primaryCtaLabel: "Join TPMC",
   description:
-    "A five-person data and strategy consultancy in Port Alder. Demand forecasts, pricing, experiments and reporting for companies of 20 to 500 people, each scoped to a fixed price before work starts.",
-  /** Your production URL. Used for canonical links, Open Graph, the sitemap and the form redirect. */
-  url: "https://example.com",
+    "Discover TPMC, a Tokyo-based project management community connecting professionals through knowledge sharing, networking, and collaborative learning.",
+  url: "https://dark-theme.jr-ergashov.workers.dev",
   lang: "en",
-  locale: "en_US",
-  /** schema.org type for the JSON-LD block, e.g. "ProfessionalService", "AccountingService", "LegalService" or "LocalBusiness". */
-  schemaType: "ProfessionalService",
-  priceRange: "$$$",
+  locale: "en_JP",
+  copyrightYear: 2026,
 
-  phone: { display: "(555) 555-0167", tel: "+15555550167" },
-  email: "hello@example.com",
-
-  address: {
-    street: "18 Wharf Lane, Suite 4",
-    city: "Port Alder",
-    region: "WA",
-    postalCode: "98000",
-    country: "US",
+  community: {
+    location: "Tokyo, Japan",
+    bilingualParticipation: "English- and Japanese-language participation",
+    foundedYear: null,
+    regularDay: null,
+    regularTime: null,
+    meetingFormat: null,
+    membershipFree: null,
   },
-  /** Where you work. Shown on the contact page and in JSON-LD `areaServed`. */
-  areaServed: "United States and Canada, remote first",
 
-  hours: [
-    { label: "Mon – Fri", days: ["Mo", "Tu", "We", "Th", "Fr"], opens: "09:00", closes: "17:30" },
-    { label: "Sat – Sun", days: ["Sa", "Su"] },
-  ] as OpeningHours[],
-  /** One line under the hours. Set to "" to hide. */
-  hoursNote: "We answer every enquiry within one working day.",
+  links: {
+    join: null,
+    linkedinCommunity: null,
+    linkedinFounder: null,
+    communityGroup: null,
+    contactEmail: null,
+    eventRegistration: null,
+  },
 
-  /** Root domains only: replace them with your own profile URLs. */
-  social: [
-    { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
-    { label: "GitHub", href: "https://github.com", icon: "github" },
-  ],
+  seo: {
+    home: {
+      title: "TPMC — Tokyo Project Management Community",
+      description:
+        "Discover TPMC, a Tokyo-based project management community connecting professionals through knowledge sharing, networking, and collaborative learning.",
+    },
+    activities: {
+      title: "Community Activities & Events | TPMC Tokyo",
+      description:
+        "Explore TPMC activities, including project management discussions, professional networking, career development, and collaborative learning in Tokyo.",
+    },
+    about: {
+      title: "About TPMC | Tokyo Project Management Community",
+      description:
+        "Learn about Tokyo Project Management Community (TPMC), our mission, values, and commitment to connecting and empowering professionals in Japan.",
+    },
+    contact: {
+      title: "Contact & Join TPMC | Tokyo",
+      description:
+        "Get in touch with TPMC to join our project management community, participate in events, or explore speaking and collaboration opportunities.",
+    },
+  },
 
-  /** The counters in the hero. These are SAMPLE figures: replace them with your real ones. A "|" in a label is where its line breaks. */
-  stats: [
-    { value: 14, label: "years of|experience" },
-    { value: 86, label: "projects|delivered" },
-    { value: 112, label: "models now|in use" },
-    { value: 5, label: "consultants|on staff" },
-  ] as Stat[],
-  /** Small caption under the counters. Set to "" once the figures are real. */
-  statsNote: "Sample figures for the Orrery demo.",
-
-  /**
-   * One accent for highlighted words, buttons, the service cards and the process panel.
-   * `accentText` is the text color on accent fills: keep a contrast ratio of at least 4.5:1
-   * (white on the default blue exceeds 4.5:1).
-   */
   theme: { accent: "#3A3AD0", accentText: "#FFFFFF" },
 
-  /**
-   * Contact form. PUBLIC_FORMGONG_ACCESS_KEY in .env wins over `accessKey`.
-   * The key (fk_…) is public by design: it only lets visitors send submissions to your form.
-   */
   formgong: {
+    provider: "Formgong",
     accessKey: "fk_your_access_key",
     endpoint: "https://formgong.com/submit",
-    subject: "New enquiry from the website",
+    subject: "New message from the TPMC website",
   },
 
   nav: [
-    { label: "services", href: "/services/" },
-    { label: "about", href: "/about/" },
-    { label: "contact", href: "/contact/" },
+    { label: "Home", href: "/" },
+    { label: "Activities", href: "/activities/" },
+    { label: "About", href: "/about/" },
+    { label: "Contact", href: "/contact/" },
   ],
-  /** The accent button in the header and footer. */
-  cta: { label: "Book a call", href: "/contact/#enquiry" },
 } as const;
 
 export type SiteConfig = typeof SITE;

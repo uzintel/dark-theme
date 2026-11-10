@@ -1,35 +1,30 @@
 ---
-/**
- * 11. Process: an accent panel that slides in from the left edge of the screen as it scrolls in,
- * next to turning orbits that stay in place (sticky). Each step = dot + title + paragraph; when a
- * step reaches the screen its dot opens, its title tilts in and its paragraph is wiped up into
- * view ([data-enter] in effects.css). Edit the steps below.
- */
+/** Four steps from joining the community to growing a professional network. */
 import Orbits from "../Orbits.astro";
 
 const steps = [
   {
-    title: "Diagnosis first",
-    body: "Two weeks with your data and the people who use the numbers every week. You get a ten-page memo: what the data can answer, what it cannot, and three options, each with a price.",
+    title: "Join the Community",
+    body: "Become part of a network of professionals passionate about project management and continuous learning.",
   },
   {
-    title: "A single owner",
-    body: "Each project answers one business question, agreed in writing, with one named person on your side who decides. Any change of scope goes through that person and gets a new price before work goes on.",
+    title: "Participate in Discussions",
+    body: "Join our regular sessions to exchange ideas, share experiences, and explore practical challenges.",
   },
   {
-    title: "Your own tools",
-    body: "Models run in your own warehouse, or as a plain Python script on a server you already own. There is no platform to license, no fee per seat, and no login that stops working on the day our contract with you comes to an end, or after.",
+    title: "Learn and Contribute",
+    body: "Gain insights from others while contributing your own knowledge, perspectives, and expertise.",
   },
   {
-    title: "Handover & review",
-    body: "In the last week your analyst reruns everything while we watch and answer questions. Ninety days later we come back for a full day, at no charge, to check that the numbers still hold up in your hands and in your tools.",
+    title: "Grow Your Network",
+    body: "Build lasting professional relationships and discover opportunities for collaboration and career growth.",
   },
 ];
 ---
 
 <section class="process" aria-labelledby="process-title">
   <div class="process-panel">
-    <h2 id="process-title" class="sr-only">How a project runs</h2>
+    <h2 id="process-title" class="process-heading">Your Community Journey</h2>
     <ol class="steps">
       {
         steps.map((step) => (
@@ -70,6 +65,11 @@ const steps = [
   .steps {
     display: grid;
     gap: 24px;
+  }
+  .process-heading {
+    margin-bottom: 2rem;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    line-height: 1.15;
   }
   .step-dot {
     display: block;
@@ -112,6 +112,11 @@ const steps = [
       max-width: calc(100% - 48px);
       margin-inline: auto;
       gap: 96px;
+    }
+    .process-heading {
+      width: 450px;
+      max-width: calc(100% - 48px);
+      margin-inline: auto;
     }
     .step-dot {
       width: 24px;
