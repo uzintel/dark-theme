@@ -5,7 +5,7 @@ import ContactForm from "../components/ContactForm.astro";
 import { SITE } from "../config";
 
 const next = [
-  { title: "Reach Out", text: "Send us a message using the contact form or one of our community channels." },
+  { title: "Reach Out", text: "Send us an email or reach out through one of our community channels." },
   { title: "Get Connected", text: "Our organizing team will review your inquiry and share the relevant information." },
   {
     title: "Join the Conversation",
@@ -47,7 +47,7 @@ const hasOtherWays = SITE.links.linkedinCommunity || communityGroup || SITE.link
               {communityGroup && (
                 <li>
                   <p class="text-muted">
-                    Join our community communication channel to connect with fellow professionals and participate in discussions.
+                    Join our official LinkedIn group to connect with fellow professionals and participate in discussions.
                   </p>
                   <a href={communityGroup} class="btn btn-secondary mt-4" target="_blank" rel="noopener">
                     Join the Community
@@ -68,15 +68,18 @@ const hasOtherWays = SITE.links.linkedinCommunity || communityGroup || SITE.link
 
         <section aria-labelledby="sessions-title">
           <h2 id="sessions-title" class="text-2xl font-light">Community Sessions</h2>
-          {SITE.community.regularDay && SITE.community.regularTime && (
-            <p class="mt-5">
-              Regular Session: {SITE.community.regularDay}, {SITE.community.regularTime}
-            </p>
-          )}
-          <p class="mt-5 text-muted">Location: {SITE.community.location}.</p>
-          <p class="mt-4 text-muted">
-            Meeting locations and participation details are shared through our community communication channels.
+          <p class="mt-5 text-muted">
+            See the official TPMC events calendar for upcoming sessions, dates, times, locations, and registration details.
           </p>
+          <p class="mt-4 text-muted">Location: {SITE.community.location}.</p>
+          <p class="mt-4 text-muted">
+            Session format and location depend on each event. Check the Luma event listing for confirmed details and joining instructions.
+          </p>
+          {SITE.links.eventRegistration && (
+            <a href={SITE.links.eventRegistration} class="btn btn-secondary mt-5" target="_blank" rel="noopener noreferrer">
+              View Upcoming Events
+            </a>
+          )}
         </section>
       </aside>
     </div>

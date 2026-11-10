@@ -7,28 +7,32 @@ export const SITE = {
   primaryCtaLabel: "Join TPMC",
   description:
     "Discover TPMC, a Tokyo-based project management community connecting professionals through knowledge sharing, networking, and collaborative learning.",
+  // Keep the staging URL canonical until the production domain resolves and is connected.
   url: "https://dark-theme.jr-ergashov.workers.dev",
+  productionUrl: "https://tpmc.tokyo",
   lang: "en",
   locale: "en_JP",
   copyrightYear: 2026,
 
   community: {
     location: "Tokyo, Japan",
-    bilingualParticipation: "English- and Japanese-language participation",
+    bilingualParticipation: "participation in English and Japanese",
     foundedYear: null,
     regularDay: null,
     regularTime: null,
-    meetingFormat: null,
-    membershipFree: null,
+    meetingFormat: "Event-specific",
+    membershipFree: true,
+    membershipApprovalRequired: true,
   },
 
   links: {
-    join: null,
-    linkedinCommunity: null,
+    join: "https://www.linkedin.com/groups/9833230/",
+    linkedinCommunity: "https://www.linkedin.com/groups/9833230/",
     linkedinFounder: null,
-    communityGroup: null,
-    contactEmail: null,
-    eventRegistration: null,
+    communityGroup: "https://www.linkedin.com/groups/9833230/",
+    contactEmail: "info@tpmc.tokyo",
+    eventRegistration: "https://luma.com/pmc",
+    eventCalendarEmbed: "https://luma.com/embed/calendar/cal-HcdBfoKcs6OaUAf/events",
   },
 
   seo: {
@@ -56,10 +60,14 @@ export const SITE = {
 
   theme: { accent: "#3A3AD0", accentText: "#FFFFFF" },
 
-  formgong: {
-    provider: "Formgong",
-    accessKey: "fk_your_access_key",
-    endpoint: "https://formgong.com/submit",
+  forms: {
+    preferredMode: "website-form",
+    fallbackMode: "mailto",
+    provider: null,
+    endpoint: null,
+    recipientEmail: "info@tpmc.tokyo",
+    privacyNoticeUrl: null,
+    verified: false,
     subject: "New message from the TPMC website",
   },
 
