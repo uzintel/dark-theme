@@ -104,10 +104,12 @@ const activities = [
 ---
 
 <BaseLayout title={SITE.seo.activities.title} description={SITE.seo.activities.description}>
-  <PageHeader
-    title="Learn Together. *Grow Together*."
-    lead="Discover how TPMC brings professionals together through practical learning, meaningful conversations, and collaborative experiences. Our activities are designed to encourage knowledge exchange, professional development, and stronger connections within the project management community."
-  />
+  <div class="activities-heading">
+    <PageHeader
+      title="Learn Together. *Grow Together*."
+      lead="Discover how TPMC brings professionals together through practical learning, meaningful conversations, and collaborative experiences. Our activities are designed to encourage knowledge exchange, professional development, and stronger connections within the project management community."
+    />
+  </div>
 
   <div class="container-x pb-24 lg:pb-36">
     <nav aria-label="Activities on this page" class="mt-10">
@@ -157,7 +159,7 @@ const activities = [
       }
     </div>
 
-    <section class="mt-16 rounded-3xl bg-accent p-8 text-accent-text sm:p-12" aria-labelledby="activities-cta">
+    <section class="activities-cta mt-16 rounded-3xl bg-accent p-8 text-accent-text sm:p-12" aria-labelledby="activities-cta">
       <h2 id="activities-cta" class="h-section">Ready to Get Involved?</h2>
       <p class="mt-5 max-w-3xl text-lg">
         Whether you want to learn, share your expertise, or simply meet like-minded professionals, TPMC welcomes your participation.
@@ -171,6 +173,12 @@ const activities = [
 </BaseLayout>
 
 <style>
+  .activities-heading :global(.hl) {
+    color: var(--c-white);
+  }
+  .activities-cta .btn-dark {
+    color: var(--accent);
+  }
   .chip {
     display: inline-flex;
     padding: 0.5rem 1rem;
