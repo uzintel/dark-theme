@@ -2,6 +2,7 @@
 export const SITE = {
   name: "Tokyo Project Management Community",
   shortName: "TPMC",
+  homeEyebrow: "Tokyo Project Managers Community",
   displayLogo: "TPMC.",
   tagline: "Connecting professionals. Sharing knowledge. Growing together.",
   primaryCtaLabel: "Join TPMC",
