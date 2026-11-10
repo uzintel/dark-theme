@@ -17,10 +17,12 @@ const hasOtherWays = SITE.links.linkedinCommunity || communityGroup || SITE.link
 ---
 
 <BaseLayout title={SITE.seo.contact.title} description={SITE.seo.contact.description}>
-  <PageHeader
-    title="Let's *Connect*."
-    lead="Have a question, an idea, or an interest in joining TPMC? We'd love to hear from you. Whether you're interested in participating in our community, sharing your expertise, proposing a collaboration, or organizing an event together, feel free to reach out."
-  />
+  <div class="contact-page-header">
+    <PageHeader
+      title="Let's *Connect*."
+      lead="Have a question, an idea, or an interest in joining TPMC? We'd love to hear from you. Whether you're interested in participating in our community, sharing your expertise, proposing a collaboration, or organizing an event together, feel free to reach out."
+    />
+  </div>
 
   <section class="section pt-0" aria-labelledby="message-title">
     <div class="container-x grid gap-14 lg:grid-cols-12 lg:gap-16">
@@ -95,3 +97,9 @@ const hasOtherWays = SITE.links.linkedinCommunity || communityGroup || SITE.link
   </section>
 
 </BaseLayout>
+
+<style>
+  .contact-page-header :global(.hl) {
+    color: var(--c-white);
+  }
+</style>
