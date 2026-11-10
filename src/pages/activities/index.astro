@@ -131,7 +131,9 @@ const activities = [
             aria-labelledby={`${activity.id}-title`}
           >
             <div class="lg:col-span-4">
-              <p class="text-lg text-accent">{activity.subtitle}</p>
+              <p class:list={["text-lg", activity.id === "knowledge-sharing" ? "knowledge-sharing-subtitle" : "text-accent"]}>
+                {activity.subtitle}
+              </p>
             </div>
             <div class="lg:col-span-8">
               <h2 id={`${activity.id}-title`} class="h-section">{activity.title}</h2>
@@ -173,6 +175,9 @@ const activities = [
 </BaseLayout>
 
 <style>
+  .knowledge-sharing-subtitle {
+    color: var(--c-primary);
+  }
   .activities-heading :global(.hl) {
     color: var(--c-white);
   }
