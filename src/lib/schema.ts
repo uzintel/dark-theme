@@ -1,44 +1,21 @@
 import { SITE } from "../config";
 
-const DAY_NAMES = { Mo: "Monday", Tu: "Tuesday", We: "Wednesday", Th: "Thursday", Fr: "Friday", Sa: "Saturday", Su: "Sunday" } as const;
-
 /**
- * schema.org ProfessionalService (or another LocalBusiness subtype) built from src/config.ts.
- * No aggregateRating on purpose: search engines ignore ratings a business publishes about itself.
+ * Organization data uses only confirmed community details and configured profile links.
  */
-export function businessJsonLd(site: URL) {
-  const { address } = SITE;
+export function communityJsonLd(site: URL) {
   return {
     "@context": "https://schema.org",
-    "@type": SITE.schemaType,
-    "@id": new URL("/#business", site).href,
+    "@type": "Organization",
+    "@id": new URL("/#organization", site).href,
     name: SITE.name,
+    alternateName: SITE.shortName,
     description: SITE.description,
     url: new URL("/", site).href,
-    telephone: SITE.phone.tel,
-    email: SITE.email,
     image: new URL("/og.png", site).href,
-    logo: new URL("/apple-touch-icon.png", site).href,
-    priceRange: SITE.priceRange,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: address.street,
-      addressLocality: address.city,
-      addressRegion: address.region,
-      postalCode: address.postalCode,
-      addressCountry: address.country,
-    },
-    areaServed: SITE.areaServed,
-    openingHoursSpecification: SITE.hours
-      .filter((h) => h.opens && h.closes)
-      .map((h) => ({
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: h.days.map((d) => `https://schema.org/${DAY_NAMES[d]}`),
-        opens: h.opens,
-        closes: h.closes,
-      })),
-    // Only real profile URLs belong here; the demo's root-domain placeholders are skipped.
-    sameAs: SITE.social.map((s) => s.href).filter((href) => new URL(href).pathname.length > 1),
+    logo: new URL("/tpmc-logo.png", site).href,
+    areaServed: { "@type": "City", name: SITE.community.location },
+    sameAs: [SITE.links.linkedinCommunity, SITE.links.linkedinFounder].filter((href) => typeof href === "string"),
   };
 }
 

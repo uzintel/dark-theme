@@ -1,10 +1,10 @@
 ---
 import fontUrl from "@fontsource/questrial/files/questrial-latin-400-normal.woff2?url";
 import { SITE } from "../config";
-import { businessJsonLd, jsonLdString } from "../lib/schema";
+import { communityJsonLd, jsonLdString } from "../lib/schema";
 
 export interface Props {
-  /** Page title without the site name. Leave out on the home page. */
+  /** Full page title from the site's SEO configuration. */
   title?: string;
   description?: string;
   /** Path or absolute URL of a 1200×630 image. */
@@ -12,9 +12,9 @@ export interface Props {
   noindex?: boolean;
 }
 
-const { title, description = SITE.description, image = "/og.png", noindex = false } = Astro.props;
-const site = Astro.site ?? Astro.url;
-const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | ${SITE.tagline}`;
+const { title = SITE.seo.home.title, description = SITE.description, image = "/og.png", noindex = false } = Astro.props;
+const site = Astro.site ?? new URL(SITE.url);
+const fullTitle = title;
 const canonical = new URL(Astro.url.pathname, site).href;
 const ogImage = new URL(image, site).href;
 ---
@@ -47,4 +47,4 @@ const ogImage = new URL(image, site).href;
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-<script type="application/ld+json" set:html={jsonLdString(businessJsonLd(site))} />
+<script type="application/ld+json" set:html={jsonLdString(communityJsonLd(site))} />
