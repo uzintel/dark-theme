@@ -2,7 +2,9 @@
 
 The TPMC website is a static Astro site for a Tokyo-based project management community. It preserves the site's dark visual theme and responsive layout while presenting the community's activities, mission, and contact information.
 
-**Canonical site URL:** https://dark-theme.jr-ergashov.workers.dev
+**Current site URL:** https://dark-theme.jr-ergashov.workers.dev (staging)
+
+**Intended production domain:** https://tpmc.tokyo. Keep the staging URL as the canonical origin until the production domain resolves and is connected to the deployment.
 
 ## Development
 
@@ -17,21 +19,21 @@ npm run build
 
 ## Pages
 
-- `/` — Community introduction and activity highlights
+- `/` — Community introduction, activity highlights, and Luma events calendar
 - `/activities/` — Six community activity themes
 - `/about/` — Mission, vision, values, audience, and community approach
-- `/contact/` — Contact form and configured community channels
+- `/contact/` — Email fallback, community channels, and event information
 - `/services/` — Permanent redirect to `/activities/`
 
 ## Configuration
 
-Edit `src/config.ts` for the brand, canonical URL, SEO text, community location and participation language, navigation, external links, and form settings. Unconfirmed external destinations and the regular meeting schedule remain unset; their related links and schedule text are hidden until configured.
+Edit `src/config.ts` for the brand, current and intended site URLs, SEO text, community details, navigation, external links, and form settings. Join, LinkedIn, community-group, contact-email, and Luma event destinations are the confirmed TPMC links. No fixed event schedule is advertised; use Luma for event-specific details. Founder details remain unset.
 
 The provided TPMC wordmark is `public/tpmc-logo.png`. The favicon, Apple touch icon, and social preview are maintained in `public/`.
 
-## Contact form
+## Contact
 
-The existing Formgong integration posts to the configured endpoint. Set `PUBLIC_FORMGONG_ACCESS_KEY` in the deployment environment to enable submissions; the repository contains only the provider's placeholder key. The form shows success only when the server returns JSON with `success: true`, and its no-JavaScript POST path redirects to `/thanks/`.
+The website form remains disabled until its provider, endpoint, delivery, spam protection, data handling, and privacy disclosure are verified. The contact page currently falls back to `mailto:info@tpmc.tokyo`. Do not expose provider API secrets in client-side code; review the provider's key model and integration before enabling a form. Keep `forms.verified` false until a safe configuration has been tested. The form shows success only when the server returns JSON with `success: true`; its no-JavaScript POST path redirects to `/thanks/`.
 
 ## Design and accessibility
 

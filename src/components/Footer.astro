@@ -2,7 +2,9 @@
 /** 13. Footer over an animated 3D field of dots (canvas, src/scripts/scenes.ts). */
 import { SITE } from "../config";
 
-const hasConnectLinks = Boolean(SITE.links.linkedinCommunity || SITE.links.communityGroup || SITE.links.contactEmail);
+const hasConnectLinks = Boolean(
+  SITE.links.linkedinCommunity || SITE.links.communityGroup || SITE.links.contactEmail || SITE.links.eventRegistration,
+);
 ---
 
 <footer class="site-footer">
@@ -38,6 +40,7 @@ const hasConnectLinks = Boolean(SITE.links.linkedinCommunity || SITE.links.commu
             {SITE.links.linkedinCommunity && <li><a href={SITE.links.linkedinCommunity} class="f-link" target="_blank" rel="noopener">LinkedIn</a></li>}
             {SITE.links.communityGroup && <li><a href={SITE.links.communityGroup} class="f-link" target="_blank" rel="noopener">Community Group</a></li>}
             {SITE.links.contactEmail && <li><a href={`mailto:${SITE.links.contactEmail}`} class="f-link">Email</a></li>}
+            {SITE.links.eventRegistration && <li><a href={SITE.links.eventRegistration} class="f-link" target="_blank" rel="noopener">Upcoming Events</a></li>}
           </ul>
         </div>
       )
