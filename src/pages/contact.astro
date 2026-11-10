@@ -2,110 +2,83 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import ContactForm from "../components/ContactForm.astro";
+import Icon from "../components/Icon.astro";
 import { SITE } from "../config";
 
+const { address } = SITE;
 const next = [
-  { title: "Reach Out", text: "Send us a message using the contact form or one of our community channels." },
-  { title: "Get Connected", text: "Our organizing team will review your inquiry and share the relevant information." },
-  {
-    title: "Join the Conversation",
-    text: "Participate in community discussions, meet fellow professionals, and contribute to our growing network.",
-  },
+  "One of us reads your message and replies within one working day.",
+  "We book a 30-minute call to hear the decision and look at what data you have.",
+  "If data can help, you get a written price for the two-week diagnostic. If it can't, we say so on the call.",
 ];
-const communityGroup = SITE.links.communityGroup || SITE.links.join;
-const hasOtherWays = SITE.links.linkedinCommunity || communityGroup || SITE.links.contactEmail;
 ---
 
-<BaseLayout title={SITE.seo.contact.title} description={SITE.seo.contact.description}>
-  <PageHeader
-    title="Let's *Connect*."
-    lead="Have a question, an idea, or an interest in joining TPMC? We'd love to hear from you. Whether you're interested in participating in our community, sharing your expertise, proposing a collaboration, or organizing an event together, feel free to reach out."
-  />
+<BaseLayout
+  title="Contact"
+  description={`Tell ${SITE.name} about the decision you are working on. We reply within one working day. ${SITE.phone.display}, ${SITE.email}.`}
+>
+  <PageHeader title="Tell us about the *decision*" lead="A few lines are enough: what you need to decide, by when, and where your data lives today." />
 
-  <section class="section pt-0" aria-labelledby="message-title">
+  <section class="pt-10 pb-24 lg:pb-36">
     <div class="container-x grid gap-14 lg:grid-cols-12 lg:gap-16">
       <div id="enquiry" class="scroll-mt-28 lg:col-span-7">
-        <h2 id="message-title" class="h-section">Send Us a Message</h2>
-        <ContactForm id="tpmc-contact" />
+        <h2 class="sr-only">Contact form</h2>
+        <ContactForm />
       </div>
+      <aside class="lg:col-span-5" aria-labelledby="details-title">
+        <h2 id="details-title" class="text-2xl font-light">Other ways to reach us</h2>
+        <ul class="mt-6 space-y-4 text-lg">
+          <li>
+            <a href={`mailto:${SITE.email}`} class="contact-link"><Icon name="mail" class="text-accent" />{SITE.email}</a>
+          </li>
+          <li>
+            <a href={`tel:${SITE.phone.tel}`} class="contact-link"><Icon name="phone" class="text-accent" />{SITE.phone.display}</a>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="map-pin" class="mt-1 shrink-0 text-accent" />
+            <span>{address.street}<br />{address.city}, {address.region} {address.postalCode}</span>
+          </li>
+        </ul>
+        <p class="mt-6 text-muted">{SITE.areaServed}.</p>
 
-      <aside class="space-y-12 lg:col-span-5">
-        {hasOtherWays && (
-          <section aria-labelledby="connect-title">
-            <h2 id="connect-title" class="text-2xl font-light">Other Ways to Connect</h2>
-            <ul class="mt-6 space-y-8">
-              {SITE.links.linkedinCommunity && (
-                <li>
-                  <p class="text-muted">
-                    Connect with TPMC and stay informed about community activities, discussions, and upcoming opportunities.
-                  </p>
-                  <a href={SITE.links.linkedinCommunity} class="btn btn-secondary mt-4" target="_blank" rel="noopener">
-                    Follow on LinkedIn
-                  </a>
-                </li>
-              )}
-              {communityGroup && (
-                <li>
-                  <p class="text-muted">
-                    Join our community communication channel to connect with fellow professionals and participate in discussions.
-                  </p>
-                  <a href={communityGroup} class="btn btn-secondary mt-4" target="_blank" rel="noopener">
-                    Join the Community
-                  </a>
-                </li>
-              )}
-              {SITE.links.contactEmail && (
-                <li>
-                  <p class="text-muted">
-                    For general inquiries, collaborations, and event proposals, please contact our organizing team.
-                  </p>
-                  <a href={`mailto:${SITE.links.contactEmail}`} class="btn btn-secondary mt-4">Send an Email</a>
-                </li>
-              )}
-            </ul>
-          </section>
-        )}
+        <h2 class="mt-12 text-2xl font-light">Office hours</h2>
+        <dl class="mt-5 space-y-2">
+          {
+            SITE.hours.map((h) => (
+              <div class="flex justify-between gap-4 border-b border-line pb-2">
+                <dt class="text-muted">{h.label}</dt>
+                <dd>{h.opens && h.closes ? `${h.opens} – ${h.closes}` : "Closed"}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        {SITE.hoursNote && <p class="mt-4 text-sm text-muted">{SITE.hoursNote}</p>}
 
-        <section aria-labelledby="sessions-title">
-          <h2 id="sessions-title" class="text-2xl font-light">Community Sessions</h2>
-          {SITE.community.regularDay && SITE.community.regularTime && (
-            <p class="mt-5">
-              Regular Session: {SITE.community.regularDay}, {SITE.community.regularTime}
-            </p>
-          )}
-          <p class="mt-5 text-muted">Location: {SITE.community.location}.</p>
-          <p class="mt-4 text-muted">
-            Meeting locations and participation details are shared through our community communication channels.
-          </p>
-        </section>
+        <h2 class="mt-12 text-2xl font-light">What happens next</h2>
+        <ol class="mt-6 space-y-5">
+          {
+            next.map((step, i) => (
+              <li class="flex gap-4">
+                <span class="grid size-8 shrink-0 place-items-center rounded-full bg-accent text-sm text-accent-text">{i + 1}</span>
+                <span class="text-muted">{step}</span>
+              </li>
+            ))
+          }
+        </ol>
       </aside>
     </div>
   </section>
-
-  <section class="section pt-0" aria-labelledby="next-title">
-    <div class="container-x">
-      <h2 id="next-title" class="h-section">What Happens Next?</h2>
-      <ol class="mt-10 grid gap-5 md:grid-cols-3">
-        {
-          next.map((step, index) => (
-            <li class="card p-7" style={`--i:${index}`}>
-              <span class="text-sm text-accent">{String(index + 1).padStart(2, "0")}</span>
-              <h3 class="mt-4 text-xl">{step.title}</h3>
-              <p class="mt-3 text-muted">{step.text}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <section class="container-x pb-24 lg:pb-36" aria-labelledby="contact-cta">
-    <div class="reveal rounded-3xl bg-accent p-8 text-accent-text sm:p-12 lg:p-16">
-      <h2 id="contact-cta" class="h-section">Let's Build a Stronger Community Together.</h2>
-      <p class="mt-5 max-w-3xl text-lg">
-        Great communities grow through people who are willing to connect, contribute, and share. We look forward to hearing from you.
-      </p>
-      {SITE.links.join && <a href={SITE.links.join} class="btn btn-dark btn-lg mt-10">{SITE.primaryCtaLabel}</a>}
-    </div>
-  </section>
 </BaseLayout>
+
+<style>
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 0.375rem;
+    transition: color 0.2s;
+  }
+  .contact-link:hover {
+    color: var(--accent);
+  }
+</style>
