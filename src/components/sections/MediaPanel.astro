@@ -1,17 +1,19 @@
 ---
 /**
- * A statement over a moving canvas panel; no photo or external media is required.
+ * 7. Large rounded panel that scales up from 90% as it scrolls in; the quote over it (not inside
+ * it, so it does not scale) flips in when it reaches the screen. The moving picture is a canvas
+ * of drifting lines (no video, no photo).
  */
 ---
 
-<section class="media-section" aria-label="A community belief">
+<section class="media-section" aria-label="How we work">
   <figure class="container-x media-col">
     <div class="media" aria-hidden="true">
       <canvas class="media-canvas" data-scene="flow"></canvas>
       <div class="media-shade"></div>
     </div>
     <blockquote class="media-quote" data-enter="flip">
-      <p>“Great projects are built by people who never stop learning<span class="hl">.</span>”</p>
+      <p>“Every number we send comes with the query that produced it<span class="hl">.</span>”</p>
     </blockquote>
   </figure>
 </section>

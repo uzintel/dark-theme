@@ -231,7 +231,7 @@
     padding-right: 2.75rem;
   }
 
-  /*   Long-form activity page copy */
+  /* Markdown body of the services page */
   .prose-orrery {
     @apply text-lg leading-relaxed text-ink;
   }

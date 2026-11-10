@@ -1,18 +1,19 @@
 ---
 /**
- * Fixed header with the brand, primary navigation, configured join action, and a 1px divider.
+ * 1. Fixed header: logo, three links in the middle, the accent button on the right and a 1px
+ * divider that runs from the content edge to the right edge of the screen.
  */
 import { SITE } from "../config";
 import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 
 const path = Astro.url.pathname;
-const isCurrent = (href: string) => (href === "/" ? path === "/" : path === href || path.startsWith(href));
+const isCurrent = (href: string) => path === href || path.startsWith(href);
 ---
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="header-logo" aria-label={`${SITE.name} — Home`}>
+    <a href="/" class="header-logo">
       <Logo />
     </a>
 
@@ -30,7 +31,7 @@ const isCurrent = (href: string) => (href === "/" ? path === "/" : path === href
       </ul>
     </nav>
 
-    {SITE.links.join && <a href={SITE.links.join} class="btn btn-primary header-cta">{SITE.primaryCtaLabel}</a>}
+    <a href={SITE.cta.href} class="btn btn-primary header-cta">{SITE.cta.label}</a>
     <button type="button" popovertarget="mobile-nav" class="menu-btn" aria-label="Open menu">
       <Icon name="menu" />
     </button>
@@ -39,13 +40,14 @@ const isCurrent = (href: string) => (href === "/" ? path === "/" : path === href
 
   <div id="mobile-nav" popover class="mobile-nav">
     <div class="header-inner">
-      <a href="/" class="header-logo" aria-label={`${SITE.name} — Home`}><Logo /></a>
+      <a href="/" class="header-logo"><Logo /></a>
       <button type="button" popovertarget="mobile-nav" popovertargetaction="hide" class="menu-btn" aria-label="Close menu">
         <Icon name="x" />
       </button>
     </div>
     <nav aria-label="Mobile" class="container-x pt-6">
       <ul class="border-t border-line">
+        <li><a href="/" class="mobile-link" aria-current={path === "/" ? "page" : undefined}>Home</a></li>
         {
           SITE.nav.map((item) => (
             <li>
@@ -56,7 +58,10 @@ const isCurrent = (href: string) => (href === "/" ? path === "/" : path === href
           ))
         }
       </ul>
-      {SITE.links.join && <a href={SITE.links.join} class="btn btn-primary btn-lg mt-10 w-full">{SITE.primaryCtaLabel}</a>}
+      <a href={SITE.cta.href} class="btn btn-primary btn-lg mt-10 w-full">{SITE.cta.label}</a>
+      <p class="mt-6 text-sm text-muted">
+        <a href={`mailto:${SITE.email}`} class="underline underline-offset-4">{SITE.email}</a> · {SITE.phone.display}
+      </p>
     </nav>
   </div>
 </header>
@@ -70,7 +75,8 @@ const isCurrent = (href: string) => (href === "/" ? path === "/" : path === href
 </script>
 
 <style>
-  /* The fixed header is 90px tall; its divider extends from the content edge to the screen edge. */
+  /* Measured on the reference: 90px tall; logo, links and button on a 1296px row (1200px column
+     plus 48px each side); a 1px line from the row's left edge to the right edge of the screen. */
   .site-header {
     position: fixed;
     inset: 0 0 auto;
@@ -92,8 +98,8 @@ const isCurrent = (href: string) => (href === "/" ? path === "/" : path === href
   .header-logo {
     display: flex;
     align-items: center;
-    width: 220px;
-    height: 76px;
+    width: 200px;
+    height: 52px;
   }
   .header-rule {
     position: absolute;
