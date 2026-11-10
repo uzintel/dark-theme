@@ -2,23 +2,26 @@
 @import "./effects.css";
 
 /* ------------------------------------------------------------------
-   Design tokens. Navy-black ground, near-white type, a mid grey for text
-   that has not "filled" yet, and one accent (from src/config.ts, set on
-   <html> by the layout). Every text pair below is at least 4.5:1.
+   Design tokens. Deep-blue ground and gradient, white type, muted lavender
+   for secondary text, and one accent (from src/config.ts, set on <html>).
 ------------------------------------------------------------------ */
 :root {
-  --accent: #dcfd35;
-  --accent-text: #040319;
-  --c-bg: #040319; /* ground */
-  --c-surface: #0d0c26; /* cards, fields */
-  --c-white: #ffffff; /* hero heading, stat labels */
-  --c-ink: #eeeeee; /* text, 17:1 on the ground */
-  --c-muted: #949494; /* secondary and unfilled text, 6.7:1 */
-  --c-dim: #949494;
+  --accent: #3A3AD0;
+  --accent-text: #FFFFFF;
+  --c-primary: #1A1A8C;
+  --c-secondary: #0A0A4A;
+  --c-bg: #05052E;
+  --c-bg-darkest: #000000;
+  --c-surface: var(--c-secondary); /* cards, fields */
+  --c-white: #FFFFFF; /* hero heading, stat labels */
+  --c-ink: var(--c-white);
+  --c-muted: #B8B8E0; /* secondary and unfilled text */
+  --c-dim: var(--c-muted);
   --c-line: rgb(255 255 255 / 0.5); /* 1px dividers */
-  --c-art: #5c5b7f; /* decorative line art (orbits) */
+  --c-art: var(--c-primary); /* decorative line art (orbits) */
   --c-danger: #ff9a8a;
-  --c-success: #dcfd35;
+  --c-success: #22c55e;
+  --gradient-hero: linear-gradient(135deg, var(--accent) 0%, var(--c-secondary) 40%, var(--c-bg-darkest) 75%);
   --radius: 12px; /* cards, buttons, panels */
   --radius-media: 24px; /* pictures */
   --header-h: 90px;
@@ -55,6 +58,8 @@
     scroll-padding-top: calc(var(--header-h) + 1.5rem);
   }
   body {
+    background: var(--gradient-hero);
+    color: var(--c-ink);
     min-height: 100dvh;
     font-size: 16px;
     line-height: 1.6;
@@ -127,10 +132,10 @@
     display: block;
     width: 128px;
     height: 1px;
-    background: var(--accent-half, rgba(220, 253, 53, 0.5));
+    background: var(--accent-half, rgba(58, 58, 208, 0.5));
   }
 
-  /* Buttons: lime block, 150 × 70, bold dark label. */
+  /* Buttons: accent block, 150 × 70, bold label. */
   .btn {
     display: inline-flex;
     align-items: center;

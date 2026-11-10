@@ -1,6 +1,6 @@
 # Orrery
 
-A free Astro theme for consultants and small B2B service firms: a dark site with large light type, one lime accent and a home page that moves as you scroll.
+A free Astro theme for consultants and small B2B service firms: a dark site with large light type, one dark-blue accent and a home page that moves as you scroll.
 
 **Live demo:** https://orrery.formgong.com · **No build step?** Download `orrery-html.zip` from the [latest release](https://github.com/formgong/orrery-astro-theme/releases/latest): plain HTML files, replace `fk_your_access_key` and `https://example.com` with your own and upload them anywhere.
 
@@ -126,7 +126,7 @@ Three CSS details that keep it working:
 
 ## Look
 
-Navy-black ground (`--c-bg`, #040319), #EEEEEE type (white for the hero heading), a grey (`--c-dim`, #949494, 6.7:1) for text that has not filled yet, and one accent from `theme.accent` (#DCFD35) with navy text on it. Type is Questrial (one weight; bold is synthesized), sized to the reference: 72px heading, 62px statements, 38px paragraphs, 22px leads. Cards and buttons have a 12px radius, pictures 24px.
+Deep-blue gradient ground (`--gradient-hero`, #3A3AD0 to #000000), white type, muted lavender (`--c-muted`, #B8B8E0) for text that has not filled yet, and one accent from `theme.accent` (#3A3AD0) with white text on it. Type is Questrial (one weight; bold is synthesized), sized to the reference: 72px heading, 62px statements, 38px paragraphs, 22px leads. Cards and buttons have a 12px radius, pictures 24px.
 
 ## Project structure
 

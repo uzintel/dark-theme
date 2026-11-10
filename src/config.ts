@@ -77,9 +77,9 @@ export const SITE = {
   /**
    * One accent for highlighted words, buttons, the service cards and the process panel.
    * `accentText` is the text color on accent fills: keep a contrast ratio of at least 4.5:1
-   * (the default near-black on lime is about 17:1).
+   * (white on the default blue exceeds 4.5:1).
    */
-  theme: { accent: "#dcfd35", accentText: "#040319" },
+  theme: { accent: "#3A3AD0", accentText: "#FFFFFF" },
 
   /**
    * Contact form. PUBLIC_FORMGONG_ACCESS_KEY in .env wins over `accessKey`.
@@ -96,7 +96,7 @@ export const SITE = {
     { label: "about", href: "/about/" },
     { label: "contact", href: "/contact/" },
   ],
-  /** The lime button in the header and footer. */
+  /** The accent button in the header and footer. */
   cta: { label: "Book a call", href: "/contact/#enquiry" },
 } as const;
 
