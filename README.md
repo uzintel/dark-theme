@@ -27,7 +27,7 @@ npm run build
 
 ## Configuration
 
-Edit `src/config.ts` for the brand, current and intended site URLs, SEO text, community details, navigation, external links, and form settings. Join, LinkedIn, community-group, contact-email, and Luma event destinations are the confirmed TPMC links. No fixed event schedule is advertised; use Luma for event-specific details. Founder details remain unset.
+Edit `src/config.ts` for the brand, current and intended site URLs, SEO text, community details, navigation, external links, and form settings. Join, LinkedIn, community-group, contact-email, and Luma event destinations are the confirmed TPMC links. No fixed event schedule is advertised; use Luma for event-specific details. Founder information is displayed in the Community Leadership section on the About page.
 
 The provided TPMC wordmark is `public/tpmc-logo.png`. The favicon, Apple touch icon, and social preview are maintained in `public/`.
 
