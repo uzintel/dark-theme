@@ -24,10 +24,12 @@ const listJsonLd = {
 ---
 
 <BaseLayout title={SITE.seo.blog.title} description={SITE.seo.blog.description} jsonLd={listJsonLd}>
-  <PageHeader
-    title="The TPMC *Blog*."
-    lead="Event recaps, practical project management guides, and news from Tokyo's project management community."
-  />
+  <div class="blog-page-header">
+    <PageHeader
+      title="The TPMC *Blog*."
+      lead="Event recaps, practical project management guides, and news from Tokyo's project management community."
+    />
+  </div>
 
   <section class="section pt-12 sm:pt-16" aria-labelledby="posts-title">
     <div class="container-x">
@@ -59,6 +61,10 @@ const listJsonLd = {
 </BaseLayout>
 
 <style>
+  .blog-page-header :global(.hl) {
+    color: var(--c-white);
+  }
+
   .post-card {
     transition: border-color 0.2s;
   }
