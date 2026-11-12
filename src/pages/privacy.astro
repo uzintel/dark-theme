@@ -1,0 +1,64 @@
+---
+/**
+ * DRAFT privacy notice for the contact form. The community's organizers must read and confirm every
+ * statement (especially retention and the form provider's handling) before the form is enabled.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { SITE } from "../config";
+
+const email = SITE.links.contactEmail;
+---
+
+<BaseLayout title={SITE.seo.privacy.title} description={SITE.seo.privacy.description}>
+  <PageHeader title="Privacy *Notice*." lead="How we handle information you send us through this website." />
+
+  <section class="section pt-12 sm:pt-16">
+    <div class="container-x">
+      <div class="prose-orrery mx-auto max-w-3xl">
+        <h2>Who we are</h2>
+        <p>
+          This website is run by the {SITE.name} ({SITE.shortName}), a community of project management professionals in {SITE.community.location}.
+          {email && <>You can reach us at <a href={`mailto:${email}`}>{email}</a>.</>}
+        </p>
+
+        <h2>What we collect</h2>
+        <p>
+          When you use the contact form we receive the details you type into it: your name, your email address, your organization
+          (optional), the type of inquiry, and your message. The form also contains a hidden field that helps us filter out
+          automated spam; it is not used to identify you.
+        </p>
+
+        <h2>Why we use it</h2>
+        <p>
+          We use this information only to read and reply to your inquiry, and to follow up on it, for example about joining the
+          community, events, speaking, or collaboration.
+        </p>
+
+        <h2>Who handles it</h2>
+        <p>
+          The form sends your message to Formgong, an online form service that delivers it to our team's email inbox and may
+          keep a copy of the submission. We do not sell your information. We share it only with the service providers that help
+          us receive and answer messages, and where the law requires it.
+        </p>
+        <p>
+          The events calendar on our home page is provided by Luma and is shown in an embedded frame. If you use it, Luma's own
+          privacy policy applies to your use of their service.
+        </p>
+
+        <h2>How long we keep it</h2>
+        <p>We keep your message only as long as needed to respond to and follow up on your inquiry.</p>
+
+        <h2>Your choices</h2>
+        <p>
+          You can ask us to tell you what we hold about you, to correct it, or to delete it.
+          {email ? <>Email <a href={`mailto:${email}`}>{email}</a> and we will respond as soon as we can.</> : "Contact us and we will respond as soon as we can."}
+          If you prefer not to use the form, you can email us directly.
+        </p>
+
+        <h2>Changes</h2>
+        <p>We may update this notice from time to time. The latest version is always on this page. Last updated: 12 November 2026.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

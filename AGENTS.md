@@ -10,7 +10,8 @@ Orrery is a static Astro 7 theme (Tailwind CSS 4, TypeScript). Read `README.md` 
 ## Where things live
 
 - Rebranding: `src/config.ts` only. Don't hard-code the business name, phone or email in components.
-- Content: `src/content/services/*.md` (schema in `src/content.config.ts`); home page sections in `src/components/sections/`.
+- Blog: Markdown in `src/content/blog/` (schema in `src/content.config.ts`, helpers in `src/lib/blog.ts`, pages in `src/pages/blog/`). Posts need unique titles and descriptions; keep `BlogPosting` data in `src/lib/schema.ts`.
+- Home page sections: `src/components/sections/`.
 - All motion: `src/styles/effects.css`. Canvas scenes: `src/scripts/scenes.ts` (keep it dependency-free and under 6 KB minified).
 
 ## The contact form (`src/components/ContactForm.astro`)

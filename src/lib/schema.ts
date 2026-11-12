@@ -19,6 +19,38 @@ export function communityJsonLd(site: URL) {
   };
 }
 
+interface BlogPostingInput {
+  title: string;
+  description: string;
+  url: string;
+  image: string;
+  published: Date;
+  modified?: Date;
+  author?: string;
+  lang: string;
+  tags: string[];
+}
+
+/** schema.org BlogPosting for one post. Without a named author, the community is the author. */
+export function blogPostingJsonLd(site: URL, post: BlogPostingInput) {
+  const organization = { "@id": new URL("/#organization", site).href };
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    mainEntityOfPage: { "@type": "WebPage", "@id": post.url },
+    url: post.url,
+    image: post.image,
+    datePublished: post.published.toISOString(),
+    dateModified: (post.modified ?? post.published).toISOString(),
+    inLanguage: post.lang,
+    ...(post.tags.length > 0 ? { keywords: post.tags.join(", ") } : {}),
+    author: post.author ? { "@type": "Person", name: post.author } : organization,
+    publisher: organization,
+  };
+}
+
 /** JSON for a <script type="application/ld+json">, safe against "</script>" in config strings. */
 export function jsonLdString(data: unknown): string {
   return JSON.stringify(data).replace(/</g, "\\u003c");

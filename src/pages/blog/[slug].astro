@@ -1,0 +1,156 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE } from "../../config";
+import { getPosts, postPath, formatDate, type Post } from "../../lib/blog";
+import { blogPostingJsonLd } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: Post;
+}
+const { post } = Astro.props;
+const { data } = post;
+const { Content } = await render(post);
+
+const site = Astro.site ?? new URL(SITE.url);
+const url = new URL(postPath(post), site).href;
+const image = new URL(data.image ?? "/og.png", site).href;
+const jsonLd = blogPostingJsonLd(site, {
+  title: data.title,
+  description: data.description,
+  url,
+  image,
+  published: data.pubDate,
+  modified: data.updatedDate,
+  author: data.author,
+  lang: data.lang,
+  tags: data.tags,
+});
+---
+
+<BaseLayout
+  title={`${data.title} | TPMC`}
+  description={data.description}
+  image={data.image}
+  type="article"
+  published={data.pubDate}
+  modified={data.updatedDate}
+  tags={data.tags}
+  jsonLd={jsonLd}
+>
+  <article class="container-x pt-16 pb-24 sm:pt-24 sm:pb-32" lang={data.lang}>
+    <div class="mx-auto max-w-3xl">
+      <a href="/blog/" class="load-in text-muted hover:text-white">&larr; All posts</a>
+      <header class="mt-8">
+        <h1 class="h-section load-in text-white" style="--d:1">{data.title}</h1>
+        <p class="load-in mt-6 text-muted" style="--d:2">
+          <time datetime={data.pubDate.toISOString()}>{formatDate(data.pubDate, data.lang)}</time>
+          {data.updatedDate && (
+            <span>
+              &middot; {data.lang === "ja" ? "更新" : "Updated"}
+              <time datetime={data.updatedDate.toISOString()}> {formatDate(data.updatedDate, data.lang)}</time>
+            </span>
+          )}
+          {data.author && <span> &middot; {data.author}</span>}
+        </p>
+        <span class="rule load-in mt-8" style="--d:3" aria-hidden="true"></span>
+      </header>
+
+      <div class="prose-orrery post-body mt-10">
+        <Content />
+      </div>
+
+      {data.tags.length > 0 && (
+        <p class="mt-12 text-sm text-accent">{data.tags.map((tag) => `#${tag.replaceAll(" ", "")}`).join("  ")}</p>
+      )}
+
+      <aside class="card mt-16 p-7 sm:p-8" aria-labelledby="join-title">
+        <h2 id="join-title" class="text-2xl text-white">Join the conversation</h2>
+        <p class="mt-3 text-muted">
+          TPMC is a community of project management professionals in Tokyo. See upcoming sessions or get in touch.
+        </p>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          {SITE.links.eventRegistration && (
+            <a href={SITE.links.eventRegistration} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              Upcoming Events
+            </a>
+          )}
+          <a href="/contact/" class="btn btn-secondary">Contact Us</a>
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  /* Markdown output is not scoped, so these use :global. Extends .prose-orrery from global.css. */
+  .post-body :global(h3) {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    color: var(--c-white);
+  }
+  .post-body :global(a) {
+    color: var(--c-white);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+  .post-body :global(a:hover) {
+    color: var(--c-muted);
+  }
+  .post-body :global(ol) {
+    list-style: decimal;
+    padding-left: 1.5rem;
+  }
+  .post-body :global(ol li) {
+    padding-left: 0.5rem;
+  }
+  .post-body :global(ol li)::before {
+    content: none;
+  }
+  .post-body :global(blockquote) {
+    border-left: 2px solid var(--accent);
+    padding-left: 1.25rem;
+    color: var(--c-muted);
+  }
+  .post-body :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-media);
+  }
+  .post-body :global(code) {
+    padding: 0.1em 0.35em;
+    border-radius: 0.375rem;
+    background: var(--c-secondary);
+    font-size: 0.9em;
+  }
+  .post-body :global(pre) {
+    overflow-x: auto;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    background: var(--c-secondary);
+  }
+  .post-body :global(pre code) {
+    padding: 0;
+    background: none;
+  }
+  .post-body :global(hr) {
+    border-color: rgb(255 255 255 / 0.2);
+  }
+  .post-body :global(table) {
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+  }
+  .post-body :global(th),
+  .post-body :global(td) {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    text-align: left;
+  }
+</style>
